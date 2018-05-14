@@ -4,3 +4,6 @@ Thumbs.db
 
 # node modules
 /node_modules
+
+# pousse legumes
+/env/config.json
