@@ -2,7 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
 var app = express()
-
+const config = require('./env/config.json')
 app.use(bodyParser.json({type: 'application/json'}))
 
 // Command pour se connecter sur la base de donne
@@ -10,11 +10,11 @@ app.use(bodyParser.json({type: 'application/json'}))
 // Note: Il faut istaller un systeme de gestion de 
 // base de donnee MySQL Exemple:MySQL
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'root',
-  database : 'PousseLegume',
-  port : 8889 
+  host     : config.db_host,
+  user     : config.db_user,
+  password : config.db_pass,
+  database : config.db_name,
+  port : config.db_port 
 });
 
 connection.connect(function(err) {
