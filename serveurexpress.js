@@ -12,9 +12,8 @@ app.use(bodyParser.json({type: 'application/json'}))
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'root',
-  database : 'PousseLegume',
-  port : 8889 
+  password : 'SOSFutur-Joris-PL',
+  database : 'PousseLegume'
 });
 
 connection.connect(function(err) {
