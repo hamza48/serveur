@@ -64,7 +64,7 @@ app.post('/', function (req, res) {
         if (error) throw error;  
       });
     }else{
-      connection.query('UPDATE mesures SET temperature = ' + temperature + ', humidite = ' + humidite + ', temperature_liquide = ' + temperature_liquide + ',ph = '+Ph+' WHERE id = 1', function(error, results, fields){
+      connection.query('UPDATE mesures SET temperature = ' + temperature + ', humidite = ' + humidite + ', temperature_liquide = ' + temperature_liquide + ',ph = '+Ph+'' WHERE id = 1', function(error, results, fields){
         if (error) throw error;  
       });
     }
