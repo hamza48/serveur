@@ -28,37 +28,38 @@ class Api{
 			}
 		];
 		
-	}
+		
+		this.app.post('/login', function (req, res) {
+		  console.log("post");
+		  
+		  console.log(req.body);
+		  
+		  if(req.body.email === this.user.email && req.body.password === this.user.password){
+			setTimeout(function(){
+				res.send({
+				  "success": true,
+				  "user": {
+					"name": "Clyx"
+				  }
+				});
+			}, 0)
+			
+		  }else{
+			res.send({
+			  "success": false
+		   });
+		  }
+		   
+		})
 
-	this.app.post('/login', function (req, res) {
-	  console.log("post");
-	  
-	  console.log(req.body);
-	  
-	  if(req.body.email === this.user.email && req.body.password === this.user.password){
-		setTimeout(function(){
+		this.app.get('/getpl', function(req, res){
 			res.send({
 			  "success": true,
-			  "user": {
-				"name": "Clyx"
-			  }
+			  "pousse_legumes": this.pousseslegumes
 			});
-		}, 0)
-		
-	  }else{
-		res.send({
-		  "success": false
-	   });
-	  }
-	   
-	})
-	
-	this.app.get('/getpl', function(req, res){
-		res.send({
-		  "success": true,
-		  "pousse_legumes": this.pousseslegumes
 		});
-	});
+		
+	}
 
 }
 
