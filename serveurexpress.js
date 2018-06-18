@@ -17,27 +17,64 @@ var connection = mysql.createConnection({
   port : config.db_port 
 });
 
+const ACTION_ALLUMER = 1;
+const ACTION_ETEINDRE = 2;
+
 connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
  
- app.get('/',function(req,res){
-  connection.query('SELECT * FROM mesures WHERE id = 1', function (error, results, fields) {
-    releve = results[0];
-    console.log(releve);
+ app.get('/actions',function(req,res){
+  connection.query('SELECT A.id as id, A.element as element, ATY.type as type FROM actions as A INNER JOIN action_types as ATY ON A.action_type_id = ATY.id', function (error, results, fields) {
+   if(results.length === 0) return;
+    var action = results[0];
+    console.log(action);
   res.send(
     {
       "success": true,
+      "action" : action
     }
   );
 
   })
 
-
-
  })
+
+app.get('/mesures', function(req, res){
+  connection.query('SELECT * FROM mesures', function(error, results, fields) {
+    if(results.length == 0) return;
+    var mesure = results[0];
+    res.send({
+      "success": true,
+      "mesure": mesure
+    });
+  })
+})
+
+app.delete('/action/delete/:id', function(req, res){
+  var id = req.params.id;
+
+  connection.query('DELETE FROM actions WHERE id = ?', [ id ], function(error, results, fields){
+    res.send({
+     "success": true
+    })
+  })
+})
  
+
+app.post('/action', function(req, res) {
+  var action_type_id = req.body.action_type;
+  var element = req.body.element;
+
+  connection.query('INSERT INTO actions (action_type_id, element) VALUES (?, ?)', [action_type_id, element], function(error, results, fields){
+    res.send({
+     "success": true
+    });
+  });
+ // res.status(200);
+})
+
 // respond with "hello world" when a GET request is made to the homepage
 app.post('/', function (req, res) {
 	res.send('Well received.')
