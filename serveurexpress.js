@@ -2,7 +2,9 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
 var app = express()
-var api = new require('./api')(app)
+var api = require('./api')
+let API = new Api(app);
+
 const config = require('./env/config.json')
 app.use(bodyParser.json({type: 'application/json'}))
 
