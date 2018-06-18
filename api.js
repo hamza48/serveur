@@ -1,12 +1,11 @@
 class Api{
 	
-	
-	const user = {
+	let user = {
 		"email": "clyx",
 		"password": "test"
 	};
 
-	const pousseslegumes = [
+	let pousseslegumes = [
 		{
 			"id": 1,
 			"name": "Pousse Légume Salon",
