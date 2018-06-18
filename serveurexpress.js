@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
 var app = express()
+var api = require('./api')(app)
 const config = require('./env/config.json')
 app.use(bodyParser.json({type: 'application/json'}))
 
@@ -62,7 +63,6 @@ app.delete('/action/delete/:id', function(req, res){
   })
 })
  
-
 app.post('/action', function(req, res) {
   var action_type_id = req.body.action_type;
   var element = req.body.element;
@@ -75,8 +75,8 @@ app.post('/action', function(req, res) {
  // res.status(200);
 })
 
-// respond with "hello world" when a GET request is made to the homepage
 app.post('/', function (req, res) {
+
 	res.send('Well received.')
 	console.log('New request')
 	console.log('start body')
