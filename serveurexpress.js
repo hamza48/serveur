@@ -2,9 +2,6 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
 var app = express()
-var Api = require('./api');
-var api = new Api(app);
-
 const config = require('./env/config.json')
 app.use(bodyParser.json({type: 'application/json'}))
 
@@ -22,6 +19,59 @@ var connection = mysql.createConnection({
 
 const ACTION_ALLUMER = 1;
 const ACTION_ETEINDRE = 2;
+
+const USER = {
+	"email": "clyx",
+	"password": "test"
+};
+
+const POUSSES_LEGUMES = [
+	{
+		"id": 1,
+		"name": "Pousse Légume Salon",
+		"type": "Particulier"
+	},
+	{
+		"id": 2,
+		"name": "Pousse Légume Restaurant",
+		"type": "Professionnel"
+	},
+	{
+		"id": 3,
+		"name": "Pousse Légume Bite",
+		"type": "Professionnel"
+	}
+];
+
+/** -------  API TEST ------   */
+
+app.post('/login', function (req, res) {
+  if(req.body.email === USER.email && req.body.password === USER.password){
+	setTimeout(function(){
+		res.send({
+		  "success": true,
+		  "user": {
+			"name": "Clyx"
+		  }
+		});
+	}, 0)
+	
+  }else{
+	res.send({
+	  "success": false
+   });
+  }
+   
+})
+
+app.get('/getpl', function(req, res){
+	res.send({
+	  "success": true,
+	  "pousse_legumes": POUSSES_LEGUMES
+	});
+});
+
+/** -------  REQUESTS ------   */
 
 connection.connect(function(err) {
   if (err) throw err;
